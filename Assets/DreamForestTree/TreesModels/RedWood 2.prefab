@@ -13,12 +13,13 @@ GameObject:
   - component: {fileID: 33065013992664210}
   - component: {fileID: 23466419510729776}
   - component: {fileID: 3539962283667493347}
+  - component: {fileID: 876017911843096456}
   m_Layer: 0
   m_Name: RedWood 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4339898394216490
 Transform:
@@ -70,8 +71,8 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ad517773ca595904a820eaaed8c0479b, type: 2}
-  - {fileID: 2100000, guid: d1a1ef2571ab2a640a26b669edd3c04a, type: 2}
+  - {fileID: 21648112510401256}
+  - {fileID: 21440639111565978}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,6 +120,20 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers: []
   m_Enabled: 1
+--- !u!136 &876017911843096456
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970681966781816}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.2
+  m_Height: 20
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!21 &21440639111565978
 Material:
   serializedVersion: 6
