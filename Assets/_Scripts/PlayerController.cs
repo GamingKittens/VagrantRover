@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 torqueScalar;
     public Vector2 steeringScalar;
     public Vector2 speedFalloff;
+    public Vector2 steeringFalloff;
     public float maxBrake = 250;
     public float maxSpeed = 12; // (m/s)
     public float steerDamping = 5;
@@ -86,13 +87,13 @@ public class PlayerController : MonoBehaviour
 
     float GetMaxAngleAtSpeed (float _speed)
     {
-        if (_speed < speedFalloff.x)
-            return steeringScalar.y;
-        else if (_speed > speedFalloff.y)
+        if (_speed < steeringFalloff.x)
             return steeringScalar.x;
+        else if (_speed > steeringFalloff.y)
+            return steeringScalar.y;
         else
         {
-            float fac = (_speed - speedFalloff.x) / (speedFalloff.y - speedFalloff.x);
+            float fac = (_speed - steeringFalloff.x) / (steeringFalloff.y - steeringFalloff.x);
             float angle = fac * (steeringScalar.y - steeringScalar.x) + steeringScalar.x;
             Debug.Log(angle);
             return angle;
@@ -110,7 +111,7 @@ public class PlayerController : MonoBehaviour
     {
         foreach (WheelCollider wheel in wheels)
         {
-            wheel.ConfigureVehicleSubsteps(20,12,12);
+            wheel.ConfigureVehicleSubsteps(5,12,14);
         }
     }
 }
