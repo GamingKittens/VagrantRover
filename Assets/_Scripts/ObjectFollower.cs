@@ -25,7 +25,7 @@ public class ObjectFollower : MonoBehaviour
         if (!runOnUpdate)
             Destroy(this);
 
-        rb = target.GetComponent<Rigidbody>();
+        rb = target.GetComponentInParent<Rigidbody>();
         if (useRigidbody && !rb)
             Debug.Log("Can't find rigidbody on " + target.name);
 
@@ -44,10 +44,10 @@ public class ObjectFollower : MonoBehaviour
 
     void LateUpdate()
     {
-        if (target)
-            UpdatePosition();
         if (lookTarget)
             UpdateRotation();
+        if (target)
+            UpdatePosition();
     }
 
     void UpdatePosition()
@@ -65,8 +65,6 @@ public class ObjectFollower : MonoBehaviour
             if (useVerticalRot)
                 _pos.y = _target.y + yOffset;
         }
-        else if (useVerticalRot)
-            _pos.y = _target.y + yOffset; // ??? IDK, ignore this setting
         else
             _pos = _target + offset;
 
@@ -76,21 +74,24 @@ public class ObjectFollower : MonoBehaviour
     void UpdateRotation()
     {
         // Calculate the current rotation angles
-        var wantedRotationAngle = lookTarget.eulerAngles.y;
+        //var wantedRotationAngle = lookTarget.eulerAngles.y;
 
-        var currentRotationAngle = transform.eulerAngles.y;
+        //var currentRotationAngle = transform.eulerAngles.y;
 
-        if (Mathf.Abs(currentRotationAngle - wantedRotationAngle) < 2)
-            return;
+        //if (Mathf.Abs(currentRotationAngle - wantedRotationAngle) < 2)
+        //    return;
 
         // Damp the rotation around the y-axis
-        currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+        //currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
 
         // Convert the angle into a rotation
-        var currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
+        //var currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
 
         // Always look at the target
-        transform.LookAt(lookTarget);
+        //transform.LookAt(lookTarget);
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(lookTarget.position-transform.position, Vector3.up), rotationDamping * Time.deltaTime);
+
     }
 }
 

@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("References")]
     public WheelCollider[] wheels;
     public WheelCollider[] wheelsFront;
     public WheelCollider[] wheelsMiddle;
     public WheelCollider[] wheelsBack;
+    public Transform headJoint;
 
+    [Header("Movement")]
     public Vector2 torqueScalar;
     public Vector2 steeringScalar;
     public Vector2 speedFalloff;
@@ -14,6 +17,14 @@ public class PlayerController : MonoBehaviour
     public float maxBrake = 250;
     public float maxSpeed = 12; // (m/s)
     public float steerDamping = 5;
+
+    [Header("Camera")]
+    public Transform lookTarget;
+    public Transform followTarget;
+    public float lookTargetSpeed;
+    public float lookTargetDist;
+    public Vector2 followTargetDist;
+    public float followTargetRot;
 
     private Rigidbody rb;
 
@@ -28,6 +39,8 @@ public class PlayerController : MonoBehaviour
         LimitSpeed();
     }
 
+
+    protected float camSwerveFac = 0;
     void HandleControls()
     {
         float torqueDirr = 0, steerDirr = 0, targetBreakTorque = 0;
@@ -43,7 +56,6 @@ public class PlayerController : MonoBehaviour
             steerDirr = -1;
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             steerDirr = 1;
-
 
 
         foreach (WheelCollider wheel in wheels)
@@ -65,10 +77,35 @@ public class PlayerController : MonoBehaviour
         foreach (WheelCollider wheel in wheelsBack)
         {
             wheel.motorTorque = torqueDirr * GetTorqueAtSpeed(rb.velocity.magnitude);
-
             float targetAngle = -steerDirr * GetMaxAngleAtSpeed(rb.velocity.magnitude);
             wheel.steerAngle = Mathf.Lerp(wheel.steerAngle, targetAngle, Time.deltaTime * steerDamping);
         }
+
+        // Turns camera when turning, for better view
+        if (steerDirr != 0)
+        {
+            float fac = 1;
+            if (Mathf.Sign(camSwerveFac) != Mathf.Sign(steerDirr))
+                fac = 2f; // Increases speed when returning to neutral AND turning that way
+            camSwerveFac = Mathf.Clamp(camSwerveFac + Time.deltaTime * lookTargetSpeed * fac * steerDirr, -1, 1);
+        }
+        else if (Mathf.Abs(camSwerveFac) > 0.01f)
+        {
+            steerDirr = -Mathf.Sign(camSwerveFac);
+            camSwerveFac = Mathf.Clamp(camSwerveFac + Time.deltaTime * lookTargetSpeed * steerDirr, -1, 1);
+        }
+        else
+            camSwerveFac = 0;
+
+        if (lookTarget)
+            lookTarget.localPosition = Vector3.right * camSwerveFac * lookTargetDist;
+        if (followTarget)
+        {
+            followTarget.localPosition = -Vector3.forward * ((Mathf.Abs(camSwerveFac) * (followTargetDist.y-followTargetDist.x)) + followTargetDist.x);
+            followTarget.parent.localRotation = Quaternion.Euler(new Vector3(0, camSwerveFac * followTargetRot, 0));
+        }
+        if (headJoint)
+            headJoint.localRotation = Quaternion.Euler(new Vector3(0, camSwerveFac * 35, 0));
     }
 
     float GetTorqueAtSpeed (float _speed)
@@ -95,7 +132,6 @@ public class PlayerController : MonoBehaviour
         {
             float fac = (_speed - steeringFalloff.x) / (steeringFalloff.y - steeringFalloff.x);
             float angle = fac * (steeringScalar.y - steeringScalar.x) + steeringScalar.x;
-            Debug.Log(angle);
             return angle;
         }
     }    
