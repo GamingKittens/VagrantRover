@@ -1,0 +1,62 @@
+# 3ds Max Wavefront OBJ Exporter v0.94b - (c)2007 guruware
+# File Created: 23.08.2017 18:53:50
+
+newmtl yellow
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 1.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.9216 0.5725 0.2627
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka D:\New folder 2\1M yello.jpg
+	map_Kd D:\New folder 2\1M yello.jpg
+	map_bump -bm 0.3000 D:\New folder 2\1M yello.jpg
+	bump -bm 0.3000 D:\New folder 2\1M yello.jpg
+
+newmtl Plastic
+	Ns 55.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 1.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.3098 0.3098 0.3098
+	Ks 1.0260 1.0260 1.0260
+	Ke 0.0000 0.0000 0.0000
+	map_Ka D:\New folder 2\Dirt bl.jpg
+	map_Kd D:\New folder 2\Dirt bl.jpg
+	map_bump -bm 0.3000 D:\New folder 2\ттт\Dirt bl.jpg
+	bump -bm 0.3000 D:\New folder 2\ттт\Dirt bl.jpg
+
+newmtl Mat_win
+	Ns 52.0000
+	Ni 1.5000
+	d 0.3300
+	Tr 0.3300
+	Tf 0.3300 0.3300 0.3300 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.9176 0.8196 0.4235
+	Ks 0.4278 0.4278 0.4278
+	Ke 0.3000 0.3000 0.3000
+
+newmtl red
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 1.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7843 0.3176 0.1765
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka D:\New folder 2\fullORAN.jpg
+	map_Kd D:\New folder 2\fullORAN.jpg
+	map_bump -bm 0.3000 D:\New folder 2\fullORAN.jpg
+	bump -bm 0.3000 D:\New folder 2\fullORAN.jpg
