@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2861775354422978224}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5112306187515224488}
@@ -2880,7 +2880,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5112306187414951563}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.07365033, z: 0.0026800036}
+  m_LocalPosition: {x: 0, y: 0.075, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5112306187652356743}
@@ -3158,7 +3158,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5112306187515224495}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3666396665619261219}
@@ -3714,19 +3714,20 @@ MonoBehaviour:
   wheelsBack:
   - {fileID: 5112306187578021024}
   - {fileID: 5112306186759995047}
-  lookTarget: {fileID: 9100496504388828833}
-  followTarget: {fileID: 3666396665619261219}
-  lookTargetSpeed: 1.25
-  lookTargetDist: 2
-  followTargetDistX: 1
-  followTargetDistZ: 0.5
+  headJoint: {fileID: 5112306187414951604}
   torqueScalar: {x: 35, y: 200}
-  steeringScalar: {x: 35, y: 12}
+  steeringScalar: {x: 35, y: 5}
   speedFalloff: {x: 2, y: 6}
   steeringFalloff: {x: 2, y: 4}
   maxBrake: 300
   maxSpeed: 13
   steerDamping: 2.5
+  lookTarget: {fileID: 9100496504388828833}
+  followTarget: {fileID: 3666396665619261219}
+  lookTargetSpeed: 1.5
+  lookTargetDist: 1
+  followTargetDist: {x: 2, y: 1.5}
+  followTargetRot: 25
 --- !u!54 &5112306187670009073
 Rigidbody:
   m_ObjectHideFlags: 0
