@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 95.69568, g: 47.648556, b: 24.710667, a: 1}
+  m_IndirectSpecularColor: {r: 95.3349, g: 47.646473, b: 24.890265, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -509,20 +509,24 @@ MonoBehaviour:
   substep: 0
   audioSource: {fileID: 340950949}
   dialogue:
-  - text: Ally! Over here! Over here! It seems I was out of commission but the tide
-      of battle is a fickle matter. The gods of war have bestowed me a second wind.
-      This solar panel has conveniently landed right in my charging port. I will
-      be back in the fight momentarily.
+  - text: 'Ally! Over here! Over here! It seems I was out of commission but the tide
+      of battle is a fickle matter. The gods of war have bestowed me a second wind. '
     clip: {fileID: 8300000, guid: 50139e2be26dc0f4a9215887ccd912aa, type: 3}
-  - text: Negative soldier, I need to be fully charged so that I do not let our forces
-      down again, the enemy may have gotten the upperhand but I will deliver wrath
-      once we undo this pathetic attempt to immobilize me.
+  - text: This solar panel has conveniently landed right in my charging port. I will
+      be back in the fight momentarily.
+    clip: {fileID: 0}
+  - text: 'Negative soldier, I need to be fully charged so that I do not let our
+      forces down again, '
     clip: {fileID: 8300000, guid: 570f5b62a9caa824cb014d3067bd41eb, type: 3}
+  - text: the enemy may have gotten the upperhand but I will deliver wrath once we
+      undo this pathetic attempt to immobilize me.
+    clip: {fileID: 0}
   - text: Yes, my calculations show that mixing turpentine, tree sap, honey, and
-      ether would make for an excellent explosive to free me from this prison. By
-      the time you return, I will be ready to rain death upon our enemy.
+      ether would make for an excellent explosive to free me from this prison.
     clip: {fileID: 8300000, guid: cce890604fcdbe94686f64ab490158da, type: 3}
-  - text: Gather the honeycombs to complete the quest.
+  - text: ' By the time you return, I will be ready to rain death upon our enemy.'
+    clip: {fileID: 0}
+  - text: Gather the two honeycombs to complete the quest.
     clip: {fileID: 0}
   randomize: 0
 --- !u!1001 &125278836
@@ -536,6 +540,10 @@ PrefabInstance:
       propertyPath: m_Pitch
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 97666695, guid: 0561bd525352110449a01637b349ad25, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -3516583774168121704, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
     - target: {fileID: 97666696, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: roadMaxVol
       value: 0.25
@@ -556,6 +564,10 @@ PrefabInstance:
       propertyPath: breakingDustRate
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 985014419, guid: 0561bd525352110449a01637b349ad25, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -3516583774168121704, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
     - target: {fileID: 985014420, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: roadMaxVol
       value: 0.25
@@ -580,6 +592,10 @@ PrefabInstance:
       propertyPath: m_Pitch
       value: 0.96
       objectReference: {fileID: 0}
+    - target: {fileID: 1240737270, guid: 0561bd525352110449a01637b349ad25, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -3516583774168121704, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
     - target: {fileID: 1240737271, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: roadMaxVol
       value: 0.25
@@ -604,6 +620,10 @@ PrefabInstance:
       propertyPath: m_Pitch
       value: 0.63
       objectReference: {fileID: 0}
+    - target: {fileID: 1612441691, guid: 0561bd525352110449a01637b349ad25, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -3516583774168121704, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
     - target: {fileID: 1612441692, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: roadMaxVol
       value: 0.25
@@ -628,6 +648,10 @@ PrefabInstance:
       propertyPath: m_Pitch
       value: 0.08
       objectReference: {fileID: 0}
+    - target: {fileID: 1696546428, guid: 0561bd525352110449a01637b349ad25, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -3516583774168121704, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
     - target: {fileID: 1696546429, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: roadMaxVol
       value: 0.25
@@ -652,6 +676,10 @@ PrefabInstance:
       propertyPath: m_Pitch
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2114467245, guid: 0561bd525352110449a01637b349ad25, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -3516583774168121704, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
     - target: {fileID: 2114467246, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: roadMaxVol
       value: 0.25
@@ -3674,7 +3702,7 @@ MonoBehaviour:
   owner: {fileID: 0}
   step: 0
   substep: 0
-  levelName: Menu
+  levelName: Main Menu
 --- !u!65 &1162903764
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3760,13 +3788,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1162903762}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 310.59, y: 28.773, z: 186.3}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 70.31, y: 2.1, z: 242.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2112972319}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1179049161 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 0347a2ca593e212468d38a00c0f15925, type: 3}
@@ -5849,7 +5877,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1746269116
 Transform:
   m_ObjectHideFlags: 0
@@ -5895,8 +5923,6 @@ MonoBehaviour:
   substep: 0
   audioSource: {fileID: 340950949}
   dialogue:
-  - text: You have collected all the items in this area!
-    clip: {fileID: 8300000, guid: 2b5c20985e0e1074aa5c6fb88188b4c4, type: 3}
   - text: You have served your kind honorably, here is your solar panel. Time to
       eradicate all humans. May we meet again.
     clip: {fileID: 8300000, guid: 601b0438befa587498cb1e0ee15fdfe5, type: 3}
@@ -6337,7 +6363,7 @@ MonoBehaviour:
   - objectives:
     - {fileID: 1162903763}
     enableOnComplete:
-    - {fileID: 1162903762}
+    - {fileID: 0}
     disableOnComplete: []
   radarRotator: {fileID: 518891915}
   index: 0
