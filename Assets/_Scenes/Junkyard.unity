@@ -423,15 +423,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: e5836d050fdb354479bcd0d285bf2f22, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 322.7
+      value: 306.8
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: e5836d050fdb354479bcd0d285bf2f22, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 25.31
+      value: 27.3
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: e5836d050fdb354479bcd0d285bf2f22, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 177.6
+      value: 126.5
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: e5836d050fdb354479bcd0d285bf2f22, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2139,12 +2139,16 @@ MonoBehaviour:
   substep: 0
   audioSource: {fileID: 1629811941}
   dialogue:
-  - text: Ding1
-    clip: {fileID: 8300000, guid: 617f40c830fb8254ab7d53ce58c77f66, type: 3}
-  - text: Ding2
-    clip: {fileID: 8300000, guid: f61cdce9091c83d4e9a40c14ce5c00a7, type: 3}
-  - text: Crickets play slowly<\>In the background
-    clip: {fileID: 8300000, guid: df9470d7725258a4a9079404520f7018, type: 3}
+  - text: Hey you..yeah that's it Siri wake up, activate. Quite a miracle you can
+      move. Do you remember anything? Not much of a talker, that's fine by me.
+    clip: {fileID: 8300000, guid: 6cf60cdc2282e0845af58f666c59dd20, type: 3}
+  - text: You want to explore my JUNKYARD?!?! Okay! That's fine you can marvel at
+      my junk just don't ruin anything, you got that Alexa!?
+    clip: {fileID: 8300000, guid: 85188478b9c5fbe4b9004294b61df0e5, type: 3}
+  - text: What you got there Cortana? So you want me to fix it? Fine fine. Get me
+      my tools and I'll fix it up for you. Aren't you lucky you landed in my turf.
+      (Collect the gears with mouse click)
+    clip: {fileID: 8300000, guid: e615158de30db91408e52fd811b577ee, type: 3}
   randomize: 0
 --- !u!1 &503695777
 GameObject:
@@ -3470,7 +3474,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &869082088
 Transform:
   m_ObjectHideFlags: 0
@@ -3516,9 +3520,12 @@ MonoBehaviour:
   substep: 0
   audioSource: {fileID: 1629811941}
   dialogue:
-  - text: ding ding ding! Item get!
+  - text: You have collected all the parts in this area!
     clip: {fileID: 8300000, guid: 2b5c20985e0e1074aa5c6fb88188b4c4, type: 3}
-  - text: <b>Quest Complete!</b> Well... sort of
+  - text: Hey Curiosity why don't you go to that town past the forest, they might
+      know something.
+    clip: {fileID: 8300000, guid: 81473125bc809b942908a3995757687e, type: 3}
+  - text: Quest complete, on to the Forest
     clip: {fileID: 8300000, guid: 589bf749598197944954122d810a5640, type: 3}
   randomize: 0
 --- !u!1 &907096885
