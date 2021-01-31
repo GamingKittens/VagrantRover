@@ -3,11 +3,19 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     public bool active = false;
-    // reference to quest
 
-    public void Initiate ()
+    [NaughtyAttributes.ReadOnly]
+    public Quest owner;
+    [NaughtyAttributes.ReadOnly]
+    public int step;
+    [NaughtyAttributes.ReadOnly]
+    public int substep;
+
+    public void Initiate (Quest _quest, int _step, int _substep)
     {
-        // Set questing reference
+        owner = _quest;
+        step = _step;
+        substep = _substep;
     }    
 
     [NaughtyAttributes.Button]
@@ -27,7 +35,9 @@ public class Interactable : MonoBehaviour
 
     protected void CheckForQuest()
     {
-        // if quest, alert
+        Debug.Log("Objective claims to be completed\n" + step + ", " + substep);
+        if (owner)
+            owner.CompleteSubStep(step, substep);
     }
 
     protected virtual void InteractOverride ()

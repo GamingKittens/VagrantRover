@@ -12,8 +12,7 @@ public class Interactable_Talk : Interactable
     [Tooltip("Randomly cycles through text")]
     public bool randomize;
 
-    [NaughtyAttributes.ReadOnly]
-    private int index = -1;
+    protected int index = -1;
 
     protected override void InteractOverride ()
     {
@@ -37,8 +36,11 @@ public class Interactable_Talk : Interactable
 
     private void PlayNext ()
     {
-        if (index >= dialogue.Length-1)
+        if (index >= dialogue.Length - 1)
+        {
+            CheckForQuest();
             return;
+        }
         else
             index++;
 
