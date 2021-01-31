@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.05915615, g: 0.05509478, b: 0.06950593, a: 1}
+  m_IndirectSpecularColor: {r: 0.17938867, g: 0.13875018, b: 0.14169462, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2707,8 +2707,6 @@ MonoBehaviour:
   m_Text: '<b><color=yellow>Voices</color></b>
 
     apogii
-
-    Randall
 
     SaveStateCorrupted
 
@@ -13515,8 +13513,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dust: {fileID: 389588391680244956, guid: f24cd8bdd08150946bf9ec8bb8d3e596, type: 3}
-  dustScalar: {x: 3, y: 6}
-  dustPerSecond: 2
+  breakScalar: {x: 0, y: 0}
+  breakingDustRate: 100
+  drivingDustRate: 10
   audioSourceGravel: {fileID: 5112306186935169235}
   roadScalar: {x: 1, y: 6}
   roadMaxVol: 0.35
@@ -13614,8 +13613,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dust: {fileID: 389588391680244956, guid: f24cd8bdd08150946bf9ec8bb8d3e596, type: 3}
-  dustScalar: {x: 3, y: 6}
-  dustPerSecond: 2
+  breakScalar: {x: 0, y: 0}
+  breakingDustRate: 100
+  drivingDustRate: 10
   audioSourceGravel: {fileID: 5112306187486435015}
   roadScalar: {x: 1, y: 6}
   roadMaxVol: 0.35
@@ -13824,8 +13824,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dust: {fileID: 389588391680244956, guid: f24cd8bdd08150946bf9ec8bb8d3e596, type: 3}
-  dustScalar: {x: 3, y: 6}
-  dustPerSecond: 2
+  breakScalar: {x: 0, y: 0}
+  breakingDustRate: 100
+  drivingDustRate: 10
   audioSourceGravel: {fileID: 5112306187809526690}
   roadScalar: {x: 1, y: 6}
   roadMaxVol: 0.35
@@ -13842,8 +13843,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dust: {fileID: 389588391680244956, guid: f24cd8bdd08150946bf9ec8bb8d3e596, type: 3}
-  dustScalar: {x: 3, y: 6}
-  dustPerSecond: 2
+  breakScalar: {x: 0, y: 0}
+  breakingDustRate: 100
+  drivingDustRate: 10
   audioSourceGravel: {fileID: 5112306188465528335}
   roadScalar: {x: 1, y: 6}
   roadMaxVol: 0.35
@@ -14052,8 +14054,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dust: {fileID: 389588391680244956, guid: f24cd8bdd08150946bf9ec8bb8d3e596, type: 3}
-  dustScalar: {x: 3, y: 6}
-  dustPerSecond: 2
+  breakScalar: {x: 0, y: 0}
+  breakingDustRate: 100
+  drivingDustRate: 10
   audioSourceGravel: {fileID: 5112306188549097512}
   roadScalar: {x: 1, y: 6}
   roadMaxVol: 0.35
@@ -14166,8 +14169,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dust: {fileID: 389588391680244956, guid: f24cd8bdd08150946bf9ec8bb8d3e596, type: 3}
-  dustScalar: {x: 3, y: 6}
-  dustPerSecond: 2
+  breakScalar: {x: 0, y: 0}
+  breakingDustRate: 100
+  drivingDustRate: 10
   audioSourceGravel: {fileID: 5112306188634489849}
   roadScalar: {x: 1, y: 6}
   roadMaxVol: 0.35
