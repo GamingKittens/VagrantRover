@@ -6,23 +6,73 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+    public static UIController instance;
+
     public Transform player;
 
     public GameObject pauseButton;
     public GameObject pausePanel;
-
-    public AudioMixer audioMixer;
+    public GameObject subsPanel;
+    public Text subsText;
 
     public Slider musicSlider;
     public Slider dialogueSlider;
     public Slider environmentSlider;
     public Slider sfxSlider;
 
+    public AudioMixer audioMixer;
+
     private float initialTimeScale = 1;
+    private float removeSubs = -1;
+
+    private void Awake()
+    {
+        if (instance)
+        {
+            Debug.LogWarning("Multiple UIControllers found in the same scene!");
+            Destroy(this);
+        }
+        else
+            instance = this;
+    }
 
     public void Start()
     {
+        subsPanel.SetActive(false);
+        pausePanel.SetActive(false);
+        pauseButton.SetActive(true);
         UpdateSliders();
+
+        if (!player)
+            Debug.LogWarning("Scene does not have player reference set");
+    }
+
+    private void Update()
+    {
+        if (Time.time >= removeSubs)
+        {
+            HideSubtitles();
+        }    
+    }
+
+    public static void DisplaySubtitles(string _txt, float duration = 6f)
+    {
+        if (!instance)
+        {
+            Debug.LogError("No UIController present in scene!");
+            return;
+        }
+
+        instance.subsText.text = _txt;
+        instance.subsPanel.SetActive(true);
+        instance.removeSubs = Time.time + duration;
+    }
+
+    void HideSubtitles ()
+    {
+        subsPanel.SetActive(false);
+        subsText.text = "";
+        removeSubs = -1;
     }
 
     private void UpdateSliders()

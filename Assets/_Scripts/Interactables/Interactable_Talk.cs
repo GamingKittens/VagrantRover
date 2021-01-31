@@ -52,8 +52,7 @@ public class Interactable_Talk : Interactable
 
     private void DisplayText(string _txt)
     {
-        //TODO: Actually display the text, wtf man
-        Debug.Log(_txt);
+        UIController.DisplaySubtitles(_txt);
     }
 }
 
