@@ -214,9 +214,9 @@ MonoBehaviour:
   target: {fileID: 0}
   lookTarget: {fileID: 0}
   offset: {x: 0.55, y: 1.5, z: -2}
-  useRigidbody: 1
+  useRigidbody: 0
   useRelativeDirection: 1
   useVerticalRot: 1
   runOnUpdate: 1
   positionDamping: 5
-  rotationDamping: 2
+  rotationDamping: 5

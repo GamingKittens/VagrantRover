@@ -17,7 +17,6 @@ public class ObjectFollower : MonoBehaviour
     public float positionDamping = 5f;
     public float rotationDamping = 5f;
 
-    
     private float yOffset;
 
     private void Start()
@@ -25,9 +24,17 @@ public class ObjectFollower : MonoBehaviour
         if (!runOnUpdate)
             Destroy(this);
 
-        rb = target.GetComponentInParent<Rigidbody>();
-        if (useRigidbody && !rb)
-            Debug.Log("Can't find rigidbody on " + target.name);
+        if (useRigidbody)
+        {
+            if (target != null)
+                rb = target.GetComponentInParent<Rigidbody>();
+            if (!rb)
+            {
+                Debug.Log("Can't find rigidbody on " + target.name);
+                useRigidbody = false;
+            }
+        }
+            
 
         RunOnce();
     }
@@ -35,11 +42,16 @@ public class ObjectFollower : MonoBehaviour
     [NaughtyAttributes.Button]
     void RunOnce()
     {
-        bool _cache = useVerticalRot;
-        useVerticalRot = false;
-        LateUpdate();
-        useVerticalRot = _cache;
-        yOffset = transform.position.y - target.position.y;
+        if (target)
+        {
+            bool _cache = useVerticalRot;
+            useVerticalRot = false;
+            LateUpdate();
+            useVerticalRot = _cache;
+            yOffset = transform.position.y - target.position.y;
+        }
+        else
+            LateUpdate();
     }
 
     void LateUpdate()

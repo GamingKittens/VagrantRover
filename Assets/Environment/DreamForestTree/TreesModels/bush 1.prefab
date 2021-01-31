@@ -70,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 606765160f5c4314d8bcb147ebdba3a1, type: 2}
+  - {fileID: 2100000, guid: d1a1ef2571ab2a640a26b669edd3c04a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -407,7 +407,7 @@ MonoBehaviour:
   m_Name: Tree Data
   m_EditorClassIdentifier: 
   _uniqueID: 27
-  materialHash: c87c463b2b8e80da769dd144d33d1864-772014080
+  materialHash: abac2c75f75b969626aabd15e1117a96-772014080
   root:
     _uniqueID: 1
     seed: 0
@@ -500,7 +500,7 @@ MonoBehaviour:
     nodeIDs: 02000000
     parentGroupID: -1
     childGroupIDs: 07000000
-    adaptiveLODQuality: 0.388
+    adaptiveLODQuality: 0.654
     shadowTextureQuality: 3
     enableWelding: 1
     enableAmbientOcclusion: 1

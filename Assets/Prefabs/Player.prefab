@@ -171,7 +171,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0.8181823, z: 0}
+  m_ConnectedAnchor: {x: 0.0006914139, y: 0.8181812, z: -0.00010728836}
   m_UseSpring: 1
   m_Spring:
     spring: 500
@@ -492,6 +492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5112306186739933468}
   - component: {fileID: 5112306186739933470}
+  - component: {fileID: 4393742462884599639}
   m_Layer: 0
   m_Name: Base Model
   m_TagString: Untagged
@@ -515,6 +516,7 @@ Transform:
   - {fileID: 5112306186876513378}
   - {fileID: 5112306187168297999}
   - {fileID: 5112306188291075961}
+  - {fileID: 5112306187728045219}
   m_Father: {fileID: 5112306187670009075}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -531,6 +533,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.61596316, y: 0.1760462, z: 0.8185629}
   m_Center: {x: 0.0015120208, y: 0.064226836, z: 0.030239612}
+--- !u!95 &4393742462884599639
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5112306186739933459}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 26df48b06cefb724fa12f488c8ab2fe6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5112306186749056873
 GameObject:
   m_ObjectHideFlags: 0
@@ -2527,7 +2548,7 @@ Transform:
   - {fileID: 5112306186749056874}
   - {fileID: 5112306186759995046}
   m_Father: {fileID: 5112306187670009075}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5112306187275116968
 GameObject:
@@ -2683,7 +2704,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5112306187297396641}
-  m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalRotation: {x: -0.43051103, y: 0, z: 0, w: 0.9025853}
   m_LocalPosition: {x: -0, y: 0.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2691,7 +2712,7 @@ Transform:
   - {fileID: 5112306188220984096}
   m_Father: {fileID: 5112306187570505786}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -51, y: 0, z: 0}
 --- !u!1 &5112306187304621355
 GameObject:
   m_ObjectHideFlags: 0
@@ -3029,7 +3050,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0.8181816, z: 0}
+  m_ConnectedAnchor: {x: 0.0006914139, y: 0.8181816, z: -0.00010728836}
   m_UseSpring: 1
   m_Spring:
     spring: 500
@@ -3681,7 +3702,6 @@ Transform:
   - {fileID: 5112306187445500777}
   - {fileID: 5112306187515224488}
   - {fileID: 5112306186739933468}
-  - {fileID: 5112306187728045219}
   - {fileID: 5112306187267263352}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -3715,12 +3735,12 @@ MonoBehaviour:
   - {fileID: 5112306187578021024}
   - {fileID: 5112306186759995047}
   headJoint: {fileID: 5112306187414951604}
-  torqueScalar: {x: 35, y: 200}
-  steeringScalar: {x: 35, y: 5}
-  speedFalloff: {x: 2, y: 6}
-  steeringFalloff: {x: 2, y: 4}
+  torqueScalar: {x: 40, y: 200}
+  steeringScalar: {x: 35, y: 15}
+  speedFalloff: {x: 2, y: 8}
+  steeringFalloff: {x: 3, y: 6}
   maxBrake: 300
-  maxSpeed: 13
+  maxSpeed: 15
   steerDamping: 2.5
   lookTarget: {fileID: 9100496504388828833}
   followTarget: {fileID: 3666396665619261219}
@@ -3893,13 +3913,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5112306187728045218}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5112306188259987374}
-  m_Father: {fileID: 5112306187670009075}
-  m_RootOrder: 4
+  m_Father: {fileID: 5112306186739933468}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5112306187749351526
 GameObject:
@@ -5264,7 +5284,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: -1, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.2098, y: 0.43, z: -0.3287}
+  m_ConnectedAnchor: {x: -0.20979309, y: 0.42999998, z: -0.32870108}
   m_UseSpring: 1
   m_Spring:
     spring: 500
