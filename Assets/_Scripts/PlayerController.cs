@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour
     public Vector2 followTargetDist;
     public float followTargetRot;
 
+    [Header("Interact")]
+    public float interactRange;
+
     private Rigidbody rb;
 
     private void Awake()
@@ -35,10 +38,22 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        PlayerInteract();
         HandleControls();
         LimitSpeed();
     }
 
+    void PlayerInteract()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            LayerMask intMask = LayerMask.GetMask("Interact");
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, interactRange+10, intMask))
+                hit.collider.GetComponentInParent<Interactable>()?.Interact();
+        }
+    }
 
     protected float camSwerveFac = 0;
     void HandleControls()
