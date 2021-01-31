@@ -1491,7 +1491,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Rover Game
+  m_Text: Vagrant Rover
 --- !u!222 &205365279
 CanvasRenderer:
   m_ObjectHideFlags: 0

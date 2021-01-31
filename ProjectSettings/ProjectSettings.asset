@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: Gaming Kittens
-  productName: Rover Game
+  productName: Vagrant Rover
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.116011046, g: 0.159072, b: 0.31132078, a: 1}
