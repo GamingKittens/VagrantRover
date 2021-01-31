@@ -86,8 +86,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 5
-  MaxDistance: 25
+  MinDistance: 15
+  MaxDistance: 55
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -122,7 +122,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -175,6 +175,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
+  owner: {fileID: 0}
+  step: 0
+  substep: 0
   audioSorce: {fileID: 2701149633804284973}
   duration: 1.5
 --- !u!1 &2701149633868990627
