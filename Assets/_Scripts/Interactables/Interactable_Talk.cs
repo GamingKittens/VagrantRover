@@ -37,10 +37,7 @@ public class Interactable_Talk : Interactable
     private void PlayNext ()
     {
         if (index >= dialogue.Length - 1)
-        {
-            CheckForQuest();
             return;
-        }
         else
             index++;
 
@@ -50,6 +47,9 @@ public class Interactable_Talk : Interactable
             DisplayText(dialogue[index].text);
         if (dialogue[index].clip != null)
             audioSource?.PlayOneShot(dialogue[index].clip);
+
+        if (index >= dialogue.Length - 1)
+            CheckForQuest();
     }
 
     private void DisplayText(string _txt)

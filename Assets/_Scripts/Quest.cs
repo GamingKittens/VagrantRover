@@ -54,6 +54,7 @@ public class Quest : MonoBehaviour
         }
 
         completed[_substep] = true;
+        updateCooldown = 0;
 
         if (TestForStepCompletion())
             NextStep();
@@ -103,10 +104,12 @@ public class Quest : MonoBehaviour
         if (steps[index].objectives.Length==0)
             return steps[index].objectives[0].transform.position;
 
-        float _dist = 0;
+        float _dist = Mathf.Infinity;
         int _i = 0;
         for (int i = 0; i< steps[index].objectives.Length; i++)
         {
+            if (completed[i])
+                continue;
             float _diff = Vector3.Distance(_pos, steps[index].objectives[i].transform.position);
             if (_diff < _dist)
             {

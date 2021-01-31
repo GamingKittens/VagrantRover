@@ -6,7 +6,6 @@ public class Interactable_Pickup : Interactable
     public AudioSource audioSorce;
     public float duration = 1.5f;
 
-
     private Vector3 initialPosition;
     private Vector3 initialScale;
     private float initialVolume;
