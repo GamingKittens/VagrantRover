@@ -39,18 +39,22 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerInteract();
+    }
+
+    void FixedUpdate()
+    {
         HandleControls();
         LimitSpeed();
     }
 
     void PlayerInteract()
     {
+        //TODO: Replace with UnityInput system.
         if (Input.GetButtonDown("Fire1"))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             LayerMask intMask = LayerMask.GetMask("Interact");
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, interactRange+10, intMask))
+            if (Physics.Raycast(ray, out RaycastHit hit, interactRange+10, intMask))
                 hit.collider.GetComponentInParent<Interactable>()?.Interact();
         }
     }
@@ -58,42 +62,46 @@ public class PlayerController : MonoBehaviour
     protected float camSwerveFac = 0;
     void HandleControls()
     {
-        float torqueDirr = 0, steerDirr = 0, targetBreakTorque = 0;
-
+        float zInput = 0, xInput = 0;
+        float torqueDirr = 0, steerDirr = 0, breakTorque = 0;
+        float zSpeed = transform.InverseTransformDirection(rb.velocity).z; // Forwards Relative Speed
+        
+        //TODO: Replace with UnityInput system.
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-            torqueDirr = 1;
-        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-            torqueDirr = -1;
-        else
-            targetBreakTorque = maxBrake;
+            zInput += 1;
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            zInput -= 1;
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-            steerDirr = -1;
-        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-            steerDirr = 1;
+            xInput -= 1;
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            xInput += 1;
 
+        // Convert input to desired actions
+        if (zInput > 0 && zSpeed >= -0.1f)
+            torqueDirr = zInput;
+        else if (zInput < 0 && zSpeed <= 0.1f)
+            torqueDirr = zInput;
+        else
+            breakTorque = maxBrake;
 
-        foreach (WheelCollider wheel in wheels)
-        {
-            wheel.brakeTorque = targetBreakTorque;
-        }
-
+        // Front wheels steer, mid & back drive. All brake
         foreach (WheelCollider wheel in wheelsFront)
         {
-            float targetAngle = steerDirr * GetMaxAngleAtSpeed(rb.velocity.magnitude);
-            wheel.steerAngle = Mathf.Lerp(wheel.steerAngle, targetAngle, Time.deltaTime * steerDamping);
+            wheel.steerAngle = Mathf.Lerp(wheel.steerAngle, xInput * GetMaxAngleAtSpeed(Mathf.Abs(zSpeed)), Time.deltaTime * steerDamping);
+            wheel.brakeTorque = breakTorque;
         }
 
         foreach (WheelCollider wheel in wheelsMiddle)
         {
-            wheel.motorTorque = torqueDirr * GetTorqueAtSpeed(rb.velocity.magnitude);
+            wheel.motorTorque = torqueDirr * GetTorqueAtSpeed(Mathf.Abs(zSpeed));
+            wheel.brakeTorque = breakTorque;
         }
 
         foreach (WheelCollider wheel in wheelsBack)
         {
-            wheel.motorTorque = torqueDirr * GetTorqueAtSpeed(rb.velocity.magnitude);
-            float targetAngle = -steerDirr * GetMaxAngleAtSpeed(rb.velocity.magnitude);
-            //wheel.steerAngle = Mathf.Lerp(wheel.steerAngle, targetAngle, Time.deltaTime * steerDamping);
+            wheel.motorTorque = torqueDirr * GetTorqueAtSpeed(Mathf.Abs(zSpeed));
+            wheel.brakeTorque = breakTorque;
         }
 
         // Turns camera when turning, for better view
@@ -157,14 +165,14 @@ public class PlayerController : MonoBehaviour
             rb.velocity = rb.velocity.normalized * maxSpeed;
     }
 
-    [NaughtyAttributes.Button]
-    void ConfigureWheelParamaters()
+    /*[NaughtyAttributes.Button]
+    void ConfigureWheelParamaters() // This snippet is used to alter the WheelColider physics settings
     {
         foreach (WheelCollider wheel in wheels)
         {
             wheel.ConfigureVehicleSubsteps(5,12,14);
         }
-    }
+    }*/
 }
 
 
@@ -234,17 +242,4 @@ public class SimpleCarController : MonoBehaviour {
 	public Transform rearDriverT, rearPassengerT;
 	public float maxSteerAngle = 30;
 	public float motorForce = 50;
-}
-© 2021 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-*/
+}*/
