@@ -1,9 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Interactable_Pickup : Interactable
 {
     [Tooltip("Ambient audio of pickup")]
     public AudioSource audioSorce;
+    public AudioClip audioClip;
     public float duration = 1.5f;
 
     private Vector3 initialPosition;
@@ -11,7 +12,7 @@ public class Interactable_Pickup : Interactable
     private float initialVolume;
     private float animationStart = float.NegativeInfinity;
 
-    void Start ()
+    void Start()
     {
         initialPosition = transform.position;
         initialScale = transform.localScale;
@@ -19,11 +20,11 @@ public class Interactable_Pickup : Interactable
             initialVolume = audioSorce.volume;
     }
 
-    void Update ()
+    void Update()
     {
         if (Time.time < animationStart + duration)
         {
-            float _fac =  1 - ((Time.time - animationStart) / duration);
+            float _fac = 1 - ((Time.time - animationStart) / duration);
             transform.localScale = initialScale * _fac;
             if (audioSorce)
                 audioSorce.volume = initialVolume * _fac;
@@ -32,25 +33,28 @@ public class Interactable_Pickup : Interactable
             EndAnimation();
     }
 
-    protected override void InteractOverride ()
+    protected override void InteractOverride()
     {
         StartAnimation();
     }
 
-    private void StartAnimation ()
+    private void StartAnimation()
     {
         active = false;
         animationStart = Time.time;
+        audioSorce.clip = audioClip;
+        audioSorce.Play();
     }
 
-    private void EndAnimation ()
+    private void EndAnimation()
     {
         gameObject.SetActive(false);
         Reset();
         CheckForQuest();
+        audioSorce.Stop();
     }
 
-    private void Reset ()
+    private void Reset()
     {
         animationStart = float.NegativeInfinity;
         transform.position = initialPosition;

@@ -264,4 +264,4 @@ AudioMixerEffectController:
     m_GUID: 382a4dead5e6ff1428d2b8297634f1a4
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
-  m_Bypass: 0
+  m_Bypass: 1

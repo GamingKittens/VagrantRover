@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 95.62878, g: 47.6168, b: 24.696594, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -543,7 +543,7 @@ PrefabInstance:
     - target: {fileID: 97666695, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: -3516583774168121704, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
+      objectReference: {fileID: -4050806034240532067, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
     - target: {fileID: 97666696, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: roadMaxVol
       value: 0.25
@@ -567,7 +567,7 @@ PrefabInstance:
     - target: {fileID: 985014419, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: -3516583774168121704, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
+      objectReference: {fileID: -4050806034240532067, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
     - target: {fileID: 985014420, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: roadMaxVol
       value: 0.25
@@ -595,7 +595,7 @@ PrefabInstance:
     - target: {fileID: 1240737270, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: -3516583774168121704, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
+      objectReference: {fileID: -4050806034240532067, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
     - target: {fileID: 1240737271, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: roadMaxVol
       value: 0.25
@@ -623,7 +623,7 @@ PrefabInstance:
     - target: {fileID: 1612441691, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: -3516583774168121704, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
+      objectReference: {fileID: -4050806034240532067, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
     - target: {fileID: 1612441692, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: roadMaxVol
       value: 0.25
@@ -651,7 +651,7 @@ PrefabInstance:
     - target: {fileID: 1696546428, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: -3516583774168121704, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
+      objectReference: {fileID: -4050806034240532067, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
     - target: {fileID: 1696546429, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: roadMaxVol
       value: 0.25
@@ -679,7 +679,7 @@ PrefabInstance:
     - target: {fileID: 2114467245, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: -3516583774168121704, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
+      objectReference: {fileID: -4050806034240532067, guid: 4c596e00df4f2cb4bab2be79321c8fd3, type: 2}
     - target: {fileID: 2114467246, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: roadMaxVol
       value: 0.25
@@ -6296,8 +6296,8 @@ MonoBehaviour:
   - text: You have served your kind honorably, here is your solar panel. Time to
       eradicate all humans. May we meet again.
     clip: {fileID: 8300000, guid: 601b0438befa587498cb1e0ee15fdfe5, type: 3}
-  - text: Quest complete, we hope you had fun!
-    clip: {fileID: 8300000, guid: 589bf749598197944954122d810a5640, type: 3}
+  - text: Quest complete, on to the Mountains
+    clip: {fileID: 8300000, guid: 362355e20a42d0c42b737621cb446656, type: 3}
   randomize: 0
 --- !u!1001 &1746923100
 PrefabInstance:
