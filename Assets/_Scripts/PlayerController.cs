@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -29,11 +29,15 @@ public class PlayerController : MonoBehaviour
     [Header("Interact")]
     public float interactRange;
 
+    [Header("Accessories")]
+    public GameObject headlights;
     private Rigidbody rb;
+    private bool headlightsOn;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        headlightsOn = false;
     }
 
     void Update()
@@ -54,8 +58,13 @@ public class PlayerController : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             LayerMask intMask = LayerMask.GetMask("Interact");
-            if (Physics.Raycast(ray, out RaycastHit hit, interactRange+10, intMask))
+            if (Physics.Raycast(ray, out RaycastHit hit, interactRange + 10, intMask))
                 hit.collider.GetComponentInParent<Interactable>()?.Interact();
+        }
+        if (Input.GetButtonDown("Fire2"))
+        {
+            headlightsOn = !headlightsOn;
+            headlights.SetActive(headlightsOn);
         }
     }
 
@@ -65,7 +74,7 @@ public class PlayerController : MonoBehaviour
         float zInput = 0, xInput = 0;
         float torqueDirr = 0, steerDirr = 0, breakTorque = 0;
         float zSpeed = transform.InverseTransformDirection(rb.velocity).z; // Forwards Relative Speed
-        
+
         //TODO: Replace with UnityInput system.
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
             zInput += 1;
@@ -124,14 +133,14 @@ public class PlayerController : MonoBehaviour
             lookTarget.localPosition = Vector3.right * camSwerveFac * lookTargetDist;
         if (followTarget)
         {
-            followTarget.localPosition = -Vector3.forward * ((Mathf.Abs(camSwerveFac) * (followTargetDist.y-followTargetDist.x)) + followTargetDist.x);
+            followTarget.localPosition = -Vector3.forward * ((Mathf.Abs(camSwerveFac) * (followTargetDist.y - followTargetDist.x)) + followTargetDist.x);
             followTarget.parent.localRotation = Quaternion.Euler(new Vector3(0, camSwerveFac * followTargetRot, 0));
         }
         if (headJoint)
             headJoint.localRotation = Quaternion.Euler(new Vector3(0, camSwerveFac * 35, 0));
     }
 
-    float GetTorqueAtSpeed (float _speed)
+    float GetTorqueAtSpeed(float _speed)
     {
         if (_speed < speedFalloff.x)
             return torqueScalar.y;
@@ -140,12 +149,12 @@ public class PlayerController : MonoBehaviour
         else
         {
             float fac = (_speed - speedFalloff.x) / (speedFalloff.y - speedFalloff.x);
-            float torq = ((1-fac) * (torqueScalar.y - torqueScalar.x)) + torqueScalar.x;
+            float torq = ((1 - fac) * (torqueScalar.y - torqueScalar.x)) + torqueScalar.x;
             return torq;
         }
     }
 
-    float GetMaxAngleAtSpeed (float _speed)
+    float GetMaxAngleAtSpeed(float _speed)
     {
         if (_speed < steeringFalloff.x)
             return steeringScalar.x;
@@ -157,7 +166,7 @@ public class PlayerController : MonoBehaviour
             float angle = fac * (steeringScalar.y - steeringScalar.x) + steeringScalar.x;
             return angle;
         }
-    }    
+    }
 
     void LimitSpeed()
     {
@@ -186,60 +195,60 @@ using UnityEngine;
 
 public class SimpleCarController : MonoBehaviour {
 
-	public void GetInput()
-	{
-		m_horizontalInput = Input.GetAxis("Horizontal");
-		m_verticalInput = Input.GetAxis("Vertical");
-	}
+    public void GetInput()
+    {
+        m_horizontalInput = Input.GetAxis("Horizontal");
+        m_verticalInput = Input.GetAxis("Vertical");
+    }
 
-	private void Steer()
-	{
-		m_steeringAngle = maxSteerAngle * m_horizontalInput;
-		frontDriverW.steerAngle = m_steeringAngle;
-		frontPassengerW.steerAngle = m_steeringAngle;
-	}
+    private void Steer()
+    {
+        m_steeringAngle = maxSteerAngle * m_horizontalInput;
+        frontDriverW.steerAngle = m_steeringAngle;
+        frontPassengerW.steerAngle = m_steeringAngle;
+    }
 
-	private void Accelerate()
-	{
-		frontDriverW.motorTorque = m_verticalInput * motorForce;
-		frontPassengerW.motorTorque = m_verticalInput * motorForce;
-	}
+    private void Accelerate()
+    {
+        frontDriverW.motorTorque = m_verticalInput * motorForce;
+        frontPassengerW.motorTorque = m_verticalInput * motorForce;
+    }
 
-	private void UpdateWheelPoses()
-	{
-		UpdateWheelPose(frontDriverW, frontDriverT);
-		UpdateWheelPose(frontPassengerW, frontPassengerT);
-		UpdateWheelPose(rearDriverW, rearDriverT);
-		UpdateWheelPose(rearPassengerW, rearPassengerT);
-	}
+    private void UpdateWheelPoses()
+    {
+        UpdateWheelPose(frontDriverW, frontDriverT);
+        UpdateWheelPose(frontPassengerW, frontPassengerT);
+        UpdateWheelPose(rearDriverW, rearDriverT);
+        UpdateWheelPose(rearPassengerW, rearPassengerT);
+    }
 
-	private void UpdateWheelPose(WheelCollider _collider, Transform _transform)
-	{
-		Vector3 _pos = _transform.position;
-		Quaternion _quat = _transform.rotation;
+    private void UpdateWheelPose(WheelCollider _collider, Transform _transform)
+    {
+        Vector3 _pos = _transform.position;
+        Quaternion _quat = _transform.rotation;
 
-		_collider.GetWorldPose(out _pos, out _quat);
+        _collider.GetWorldPose(out _pos, out _quat);
 
-		_transform.position = _pos;
-		_transform.rotation = _quat;
-	}
+        _transform.position = _pos;
+        _transform.rotation = _quat;
+    }
 
-	private void FixedUpdate()
-	{
-		GetInput();
-		Steer();
-		Accelerate();
-		UpdateWheelPoses();
-	}
+    private void FixedUpdate()
+    {
+        GetInput();
+        Steer();
+        Accelerate();
+        UpdateWheelPoses();
+    }
 
-	private float m_horizontalInput;
-	private float m_verticalInput;
-	private float m_steeringAngle;
+    private float m_horizontalInput;
+    private float m_verticalInput;
+    private float m_steeringAngle;
 
-	public WheelCollider frontDriverW, frontPassengerW;
-	public WheelCollider rearDriverW, rearPassengerW;
-	public Transform frontDriverT, frontPassengerT;
-	public Transform rearDriverT, rearPassengerT;
-	public float maxSteerAngle = 30;
-	public float motorForce = 50;
+    public WheelCollider frontDriverW, frontPassengerW;
+    public WheelCollider rearDriverW, rearPassengerW;
+    public Transform frontDriverT, frontPassengerT;
+    public Transform rearDriverT, rearPassengerT;
+    public float maxSteerAngle = 30;
+    public float motorForce = 50;
 }*/
