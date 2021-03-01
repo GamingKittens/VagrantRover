@@ -6,9 +6,9 @@ TerrainLayer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: layer_Ground 1Ground 1 N2023054508611406
-  m_DiffuseTexture: {fileID: 2800000, guid: 38d6a13a3b047fe4ea696f11f4976f73, type: 3}
-  m_NormalMapTexture: {fileID: 2800000, guid: a1fb8480cd1b30448a52e6df95f69224, type: 3}
+  m_Name: red Dirt
+  m_DiffuseTexture: {fileID: 2800000, guid: 298b51fa214fd6341b2eebad7a50ee12, type: 3}
+  m_NormalMapTexture: {fileID: 2800000, guid: e18a4cda84844974c9f3a7ffe59d8373, type: 3}
   m_MaskMapTexture: {fileID: 0}
   m_TileSize: {x: 5, y: 5}
   m_TileOffset: {x: 0, y: 0}

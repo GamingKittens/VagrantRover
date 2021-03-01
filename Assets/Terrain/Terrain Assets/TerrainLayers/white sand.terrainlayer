@@ -6,8 +6,8 @@ TerrainLayer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Metal - Various
-  m_DiffuseTexture: {fileID: 2800000, guid: 312686d547beeda46aaeaaaa0667ac32, type: 3}
+  m_Name: white sand
+  m_DiffuseTexture: {fileID: 2800000, guid: d1182c3a8422f17468f8af8e24118c94, type: 3}
   m_NormalMapTexture: {fileID: 0}
   m_MaskMapTexture: {fileID: 0}
   m_TileSize: {x: 5, y: 5}
