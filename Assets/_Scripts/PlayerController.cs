@@ -33,12 +33,17 @@ public class PlayerController : MonoBehaviour
     public GameObject headlights;
     private Rigidbody rb;
     private bool headlightsOn;
+    private Vector2 initTorqueScalar;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         headlightsOn = false;
+        initTorqueScalar = torqueScalar;
     }
+
+
+
 
     void Update()
     {
@@ -66,6 +71,20 @@ public class PlayerController : MonoBehaviour
             headlightsOn = !headlightsOn;
             headlights.SetActive(headlightsOn);
         }
+        if (Input.GetButtonDown("Sprint"))
+        {
+            if (torqueScalar[0] < 500)
+            {
+                torqueScalar[0] *= 5;
+                torqueScalar[1] *= 5;
+            }
+        }
+        if (Input.GetButtonUp("Sprint"))
+        {
+            torqueScalar = initTorqueScalar;
+        }
+
+
     }
 
     protected float camSwerveFac = 0;
@@ -174,15 +193,15 @@ public class PlayerController : MonoBehaviour
             rb.velocity = rb.velocity.normalized * maxSpeed;
     }
 
-    /*[NaughtyAttributes.Button]
-    void ConfigureWheelParamaters() // This snippet is used to alter the WheelColider physics settings
-    {
-        foreach (WheelCollider wheel in wheels)
-        {
-            wheel.ConfigureVehicleSubsteps(5,12,14);
-        }
-    }*/
 }
+/*[NaughtyAttributes.Button]
+void ConfigureWheelParamaters() // This snippet is used to alter the WheelColider physics settings
+{
+    foreach (WheelCollider wheel in wheels)
+    {
+        wheel.ConfigureVehicleSubsteps(5,12,14);
+    }
+}*/
 
 
 
