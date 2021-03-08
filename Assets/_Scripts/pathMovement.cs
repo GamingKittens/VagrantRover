@@ -39,7 +39,6 @@ public class pathMovement : MonoBehaviour
             else
             {
                 currentNode = 0;
-                print(currentNode);
                 CheckNode();
             }
         }
