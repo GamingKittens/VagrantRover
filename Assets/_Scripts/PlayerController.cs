@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    #region Properties
     [Header("References")]
     public WheelCollider[] wheels;
     public WheelCollider[] wheelsFront;
     public WheelCollider[] wheelsMiddle;
     public WheelCollider[] wheelsBack;
     public Transform headJoint;
+    public PlayerInput input;
 
     [Header("Movement")]
     public Vector2 torqueScalar;
@@ -33,13 +36,17 @@ public class PlayerController : MonoBehaviour
     public GameObject headlights;
     private Rigidbody rb;
     private bool headlightsOn;
+    #endregion Properties
 
+    #region Initialization
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         headlightsOn = false;
     }
+    #endregion Initialization
 
+    #region UpdateMethods
     void Update()
     {
         PlayerInteract();
@@ -139,7 +146,9 @@ public class PlayerController : MonoBehaviour
         if (headJoint)
             headJoint.localRotation = Quaternion.Euler(new Vector3(0, camSwerveFac * 35, 0));
     }
+    #endregion UpdateMethods
 
+    #region Utility
     float GetTorqueAtSpeed(float _speed)
     {
         if (_speed < speedFalloff.x)
@@ -182,6 +191,7 @@ public class PlayerController : MonoBehaviour
             wheel.ConfigureVehicleSubsteps(5,12,14);
         }
     }*/
+    #endregion Utility
 }
 
 
