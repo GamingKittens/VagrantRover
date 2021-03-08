@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pathMovement : MonoBehaviour
+public class PathMovement : MonoBehaviour
 {
     public GameObject pathExplorerCharacter;
     public float moveSpeed;

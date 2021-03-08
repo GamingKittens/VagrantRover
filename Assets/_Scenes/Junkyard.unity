@@ -10744,11 +10744,11 @@ MonoBehaviour:
   pathMovementBase: {fileID: 1644804308}
   newPaths: {fileID: 392685148}
   basePathExplorer: {fileID: 616450077}
-  baseSpeed: 0
-  baseSpeedAway: 0
-  distanceAwayBase: 0
-  min: 0
-  max: 0
+  baseSpeed: 30
+  baseSpeedAway: 5
+  distanceAwayBase: 5
+  min: 5
+  max: 30
   conf_level: 0
 --- !u!4 &1252106429
 Transform:
@@ -13336,7 +13336,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1644804309}
-  - component: {fileID: 1644804310}
   m_Layer: 0
   m_Name: Path
   m_TagString: Untagged
@@ -13362,20 +13361,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1644804310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1644804308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4083c4e252848d842afd12876a134721, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathExplorerCharacter: {fileID: 0}
-  moveSpeed: 10
 --- !u!1 &1648590702
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-public class pathMovementMasterController : MonoBehaviour
+public class PathMovementMasterController : MonoBehaviour
 {
     public GameObject pathMovementBase;
     public GameObject newPaths;
@@ -23,11 +22,11 @@ public class pathMovementMasterController : MonoBehaviour
         basePathNodes = pathMovementBase.GetComponentsInChildren(typeof(Transform), includeInactive:true);
 
         for(int i = 0; i < numPaths; i++){
-            generatePath(i);
+            GeneratePath(i);
         }
     }
 
-    void generatePath(int i)
+    void GeneratePath(int i)
     {
         GameObject newPath = new GameObject();
         float x,y,z;
@@ -43,9 +42,9 @@ public class pathMovementMasterController : MonoBehaviour
             newNode.transform.parent = newPath.transform;
         }
         GameObject newPathExplorer = Instantiate(basePathExplorer);
-        newPath.AddComponent<pathMovement>();
-        newPath.GetComponent<pathMovement>().pathExplorerCharacter = newPathExplorer;
-        newPath.GetComponent<pathMovement>().moveSpeed = RandomFromDistribution.RandomRangeNormalDistribution(baseSpeed-baseSpeedAway, baseSpeed+baseSpeedAway, conf_level);
+        PathMovement pm = newPath.AddComponent<PathMovement>();
+        pm.pathExplorerCharacter = newPathExplorer;
+        pm.moveSpeed = RandomFromDistribution.RandomRangeNormalDistribution(baseSpeed-baseSpeedAway, baseSpeed+baseSpeedAway, conf_level);
         newPath.transform.parent = newPaths.transform;  
     }
 
