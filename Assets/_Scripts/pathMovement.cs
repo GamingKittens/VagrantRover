@@ -4,25 +4,31 @@ using UnityEngine;
 
 public class PathMovement : MonoBehaviour
 {
+    #region Properties
     public GameObject pathExplorerCharacter;
     public float moveSpeed;
-    float timer;
-    static Vector3 currentPositionHolder;
-    int currentNode;
-    static Vector3 startPositionEachUpdate;
-    // Start is called before the first frame update
-    void Start()
+    private float timer;
+    private Vector3 currentPositionHolder;
+    private int currentNode;
+    private Vector3 startPositionEachUpdate;
+    #endregion Properties
+
+    #region Initialization
+    void Start ()
     {
         CheckNode();
     }
+    #endregion Initialization
 
-    void CheckNode(){
+    #region Methods
+    void CheckNode ()
+    {
         startPositionEachUpdate = pathExplorerCharacter.transform.position;
         timer = 0;
         currentPositionHolder = gameObject.transform.GetChild(currentNode).transform.position;
     }
-    // Update is called once per frame
-    void Update()
+
+    void Update ()
     {
         timer += Time.deltaTime * moveSpeed;
         if (pathExplorerCharacter.transform.position != currentPositionHolder)
@@ -31,16 +37,9 @@ public class PathMovement : MonoBehaviour
         }
         else
         {
-            if (currentNode < gameObject.transform.childCount - 1)
-            {
-                currentNode++;
-                CheckNode();
-            }
-            else
-            {
-                currentNode = 0;
-                CheckNode();
-            }
+            currentNode = ++currentNode % gameObject.transform.childCount;
+            CheckNode();
         }
     }
+    #endregion Methods
 }
