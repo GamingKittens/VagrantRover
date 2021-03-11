@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     public GameObject headlights;
     private Rigidbody rb;
     private bool headlightsOn;
+
+    private InputAction action_Interact;
     #endregion Properties
 
     #region Initialization
@@ -43,6 +45,9 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         headlightsOn = false;
+
+        // Assign InputAction references
+        action_Interact = input.actions.FindAction("Fire");
     }
     #endregion Initialization
 
@@ -61,7 +66,7 @@ public class PlayerController : MonoBehaviour
     void PlayerInteract()
     {
         //TODO: Replace with UnityInput system.
-        if (Input.GetButtonDown("Fire1"))
+        if (action_Interact.ReadValue<float>() >= 0.4f)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             LayerMask intMask = LayerMask.GetMask("Interact");

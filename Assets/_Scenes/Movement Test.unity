@@ -720,12 +720,14 @@ MonoBehaviour:
   heightRange: {x: 0, y: 1}
   pow: 1
   ratio: 0
-  cliffAngle: 0
+  cliffAngle: {x: 30, y: 50}
   groundLayer1: 0
   groundLayer2: 1
   cliffLayer: 2
   randomizeOffsets: 0
   offset: {x: 9625.667, y: 3960.3132}
+  scale: 1
+  meshMat: {fileID: 2100000, guid: f5a285d3d47ebfa44b830d667950ddaf, type: 2}
 --- !u!1 &642714278
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using NaughtyAttributes;
 public class TerrainHelper : MonoBehaviour
 {
     #region Properties
+    [Required]
     public Terrain terrain;
 
     public TerrainEditPresets preset;
@@ -33,10 +34,16 @@ public class TerrainHelper : MonoBehaviour
     [DisableIf("randomizeOffsets")]
     public Vector2 offset;
 
+    [HorizontalLine(color: EColor.Indigo), Header("Mesh")]
+    [Range(0,5), Tooltip("Higher values decrease resolution by 2^x")]
+    public int scale = 1;
+    public Material meshMat;
+    private GameObject meshObj;
+    
     private bool debug = true;
     #endregion Properties
 
-    #region EditorHandles
+    #region Editor Handles
     [Button("Apply Heightmap")]
     public void PerlinNoise ()
     {
@@ -78,7 +85,7 @@ public class TerrainHelper : MonoBehaviour
         #region Debug
         double elapsedTime = System.DateTime.Now.Subtract(startTime).TotalMilliseconds;
         if (debug)
-            Debug.Log("Generation complete!\nElapsed time: " + elapsedTime + "ms");
+            Debug.Log("Hieghtmap generation complete!\nElapsed time: " + elapsedTime + "ms");
         #endregion Debug
     }
 
@@ -87,9 +94,34 @@ public class TerrainHelper : MonoBehaviour
     {
         InvertHeights(terrain);
     }
-    #endregion EditorHandles
 
-    #region HeightMethods
+    [Button("ToggleMesh")]
+    public void ToggleMesh()
+    {
+        if (meshObj)
+        {
+            DestroyImmediate(meshObj);
+            terrain.enabled = true;
+        }
+        else
+        {
+            #region Debug
+            System.DateTime startTime = System.DateTime.Now;
+            #endregion Debug
+
+            terrain.enabled = false;
+            ConvertToMesh(terrain.terrainData);
+
+            #region Debug
+            double elapsedTime = System.DateTime.Now.Subtract(startTime).TotalMilliseconds;
+            if (debug)
+                Debug.Log("Mesh generation complete!\nElapsed time: " + elapsedTime + "ms");
+            #endregion Debug
+        }
+    }
+    #endregion Editor Handles
+
+    #region Height Methods
     public void GenerateHeights(Terrain _terrain, TerrainEditMode _mode, float _tileSize, Vector2 _range, Vector2 _offset)
     {
         #region Sanitization
@@ -194,9 +226,9 @@ public class TerrainHelper : MonoBehaviour
     {
         offset = new Vector2(Random.value, Random.value) * 10000;
     }
-    #endregion
+    #endregion Height Methods
 
-    #region TextureMethods
+    #region Texture Methods
     public void SlopeTextures (Terrain _terrain, Vector2 _angleRange, int _slopeTex)
     {
         int res = _terrain.terrainData.heightmapResolution;
@@ -225,7 +257,92 @@ public class TerrainHelper : MonoBehaviour
         }
         _terrain.terrainData.SetAlphamaps(0, 0, map);
     }
-    #endregion TextureMethods
+    #endregion Texture Methods
+
+    #region Mesh Methods
+    public void ConvertToMesh (TerrainData td)
+    {
+        int fac = (int)Mathf.Pow(2, scale);
+        int res = 1 + ((td.heightmapResolution-1) / fac);
+        int vertCount = res * res;
+        int trisCount = 2 * (res-1)*(res-1);
+
+        Debug.Log("Resolution: " + (res-1) + " + 1\nVertices:" + vertCount);
+
+        #region CreateObjects
+        meshObj = new GameObject();
+        meshObj.transform.parent = transform;
+        meshObj.transform.localPosition = Vector3.zero;
+        meshObj.name = "DebugMesh";
+        MeshRenderer meshRenderer = meshObj.AddComponent<MeshRenderer>();
+        meshRenderer.sharedMaterial = meshMat;
+        MeshFilter meshFilter = meshObj.AddComponent<MeshFilter>();
+        Mesh mesh = new Mesh();
+        Vector3[] vertices = new Vector3[vertCount];
+        int[] tris = new int[trisCount*3];
+        Vector3[] normals = new Vector3[vertCount];
+        Vector2[] uv = new Vector2[vertCount];
+        #endregion CreateObjects
+
+        // Sets verts to match position of terrain
+        for (int i=0; i<vertCount; i++)
+        {
+            Vector2Int pos = GetPos(i, res);
+            
+            vertices[i] = new Vector3(
+                td.size.x * pos.x/(res-1),
+                td.GetHeight(pos.x*fac, pos.y*fac),
+                td.size.z * pos.y/(res-1));
+        }
+        mesh.vertices = vertices;
+
+        // Loops through each quad, setting flat tri values
+        for (int i = 0; i < trisCount/2; i++)
+        {
+            Vector2Int pos = GetPos(i, res-1);
+            int a = i * 6;
+
+            // First tri - Bot Left
+            tris[a+0] = GetVal(0, 0, pos, res);
+            tris[a+1] = GetVal(0, 1, pos, res);
+            tris[a+2] = GetVal(1, 0, pos, res);
+
+            // Second tri - Top right
+            tris[a+3] = GetVal(0, 1, pos, res);
+            tris[a+4] = GetVal(1, 1, pos, res);
+            tris[a+5] = GetVal(1, 0, pos, res);
+        }
+        mesh.triangles = tris;
+
+        // Simple up-facing Normals
+        for (int i = 0; i < vertCount; i++)
+        {
+            normals[i] = -Vector3.forward;
+        }
+        mesh.normals = normals;
+
+        // IDRK how UVs work
+        for (int i = 0; i < vertCount; i++)
+        {
+            Vector2Int pos = GetPos(i, res);
+
+            uv[i] = new Vector2(pos.x, pos.y);
+        }
+        mesh.uv = uv;
+
+        meshFilter.mesh = mesh;
+    }
+
+    private Vector2Int GetPos (int _i, int _res)
+    {
+        return new Vector2Int(_i % _res, _i / _res);
+    }
+
+    private int GetVal (int _x, int _y, Vector2Int _pos, int _res)
+    {
+        return (_pos.x+_x) + ((_pos.y+_y) * _res);
+    }
+    #endregion Mesh Methods
 }
 
 #region Enums
