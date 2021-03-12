@@ -714,19 +714,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrain: {fileID: 576397928}
-  preset: 2
-  mode: 1
-  noiseScale: 4
+  preset: 4
+  mode: 0
+  terrainScale: 25
   heightRange: {x: 0, y: 1}
   pow: 1
+  alphaScale: 4
   ratio: 0
-  cliffAngle: {x: 30, y: 50}
+  cliffAngle: {x: 70, y: 90}
   groundLayer1: 0
   groundLayer2: 1
   cliffLayer: 2
-  randomizeOffsets: 0
-  offset: {x: 9625.667, y: 3960.3132}
-  scale: 1
+  randomizeOffsets: 1
+  offset: {x: 5388.8887, y: 2240.8787}
+  offsetAlphas: {x: 5587.198, y: 7631.5356}
+  scale: 2
   meshMat: {fileID: 2100000, guid: f5a285d3d47ebfa44b830d667950ddaf, type: 2}
 --- !u!1 &642714278
 GameObject:
@@ -1884,6 +1886,14 @@ PrefabInstance:
       propertyPath: breakingDustRate
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 5112306186685516041, guid: 0561bd525352110449a01637b349ad25, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.81818557
+      objectReference: {fileID: 0}
+    - target: {fileID: 5112306187475713712, guid: 0561bd525352110449a01637b349ad25, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.8181837
+      objectReference: {fileID: 0}
     - target: {fileID: 5112306187670009072, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1935,6 +1945,10 @@ PrefabInstance:
     - target: {fileID: 5112306187670009075, guid: 0561bd525352110449a01637b349ad25, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5112306188306111806, guid: 0561bd525352110449a01637b349ad25, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.42999983
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0561bd525352110449a01637b349ad25, type: 3}

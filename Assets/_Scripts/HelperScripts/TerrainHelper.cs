@@ -12,14 +12,16 @@ public class TerrainHelper : MonoBehaviour
     [HorizontalLine(color: EColor.Red)]
     [Header("HeightMap")]
     public TerrainEditMode mode;
-    public float noiseScale = 10.0f;
+    public float terrainScale = 10.0f;
     [MinMaxSlider(0,1)]
     public Vector2 heightRange = new Vector2(0, 1);
     [Min(1)]
     public float pow = 1;
 
     [HorizontalLine(color: EColor.Blue)]
-    [Header("TextureMap")]
+    [Header("AlphaMap")]
+    public float alphaScale = 5f;
+    [Range(0, 1)]
     public float ratio;
     [MinMaxSlider(0, 90)]
     public Vector2 cliffAngle;
@@ -33,6 +35,7 @@ public class TerrainHelper : MonoBehaviour
     public bool randomizeOffsets = true;
     [DisableIf("randomizeOffsets")]
     public Vector2 offset;
+    public Vector2 offsetAlphas;
 
     [HorizontalLine(color: EColor.Indigo), Header("Mesh")]
     [Range(0,5), Tooltip("Higher values decrease resolution by 2^x")]
@@ -44,8 +47,8 @@ public class TerrainHelper : MonoBehaviour
     #endregion Properties
 
     #region Editor Handles
-    [Button("Apply Heightmap")]
-    public void PerlinNoise ()
+    [Button("Apply")]
+    public void Apply ()
     {
         #region Debug
         System.DateTime startTime = System.DateTime.Now;
@@ -58,27 +61,58 @@ public class TerrainHelper : MonoBehaviour
         {
             default:
             case TerrainEditPresets.Custom:
-                GenerateHeights (terrain, mode, noiseScale, heightRange, offset);
-                PowHeights      (terrain, pow);
+                PerlinHeights   (terrain.terrainData, mode, terrainScale, heightRange, offset);
+                PowHeights      (terrain.terrainData, pow);
+
+                PerlinAlphas(terrain.terrainData, offsetAlphas, groundLayer1, groundLayer2, alphaScale, ratio);
+                SlopeAlphas (terrain.terrainData, cliffAngle, cliffLayer);
                 break;
+
             case TerrainEditPresets.Hills:
-                GenerateHeights (terrain, TerrainEditMode.Set, noiseScale, new Vector2(0.5f, 1), offset);
-                PowHeights      (terrain, 5);
-                GenerateHeights (terrain, TerrainEditMode.Subtractive, noiseScale*2.5f, new Vector2(0.0f, 0.1f), offset*2);
-                NormalizeHeights(terrain, heightRange.x, heightRange.y);
+                PerlinHeights   (terrain.terrainData, TerrainEditMode.Set, terrainScale, new Vector2(0.5f, 1), offset);
+                PowHeights      (terrain.terrainData, 5);
+                PerlinHeights   (terrain.terrainData, TerrainEditMode.Subtractive, terrainScale * 2.5f, new Vector2(0.0f, 0.1f), offset*2);
+                NormalizeHeights(terrain.terrainData, heightRange.x, heightRange.y);
+
+                ClearAlphas (terrain.terrainData, 0);
+                PerlinAlphas(terrain.terrainData, offsetAlphas, groundLayer1, groundLayer2, alphaScale, ratio);
+                SlopeAlphas (terrain.terrainData, new Vector2(12.5f, 70), cliffLayer);
                 break;
+
             case TerrainEditPresets.Plateaus:
-                GenerateHeights (terrain, TerrainEditMode.Set, noiseScale, new Vector2(0, 1), offset);
-                GenerateHeights (terrain, TerrainEditMode.Additive, noiseScale, new Vector2(0.25f, 0.4f), offset);
-                PowHeights      (terrain, 20);
-                GenerateHeights (terrain, TerrainEditMode.Additive, noiseScale*2.4f, new Vector2(0, 0.2f), offset);
-                PowHeights      (terrain, 1.05f);
-                NormalizeHeights(terrain, heightRange.x, heightRange.y);
+                PerlinHeights   (terrain.terrainData, TerrainEditMode.Set, terrainScale, new Vector2(0, 1), offset);
+                PerlinHeights   (terrain.terrainData, TerrainEditMode.Additive, terrainScale, new Vector2(0.25f, 0.4f), offset);
+                PowHeights      (terrain.terrainData, 20);
+                PerlinHeights   (terrain.terrainData, TerrainEditMode.Additive, terrainScale * 2.4f, new Vector2(0, 0.2f), offset);
+                PowHeights      (terrain.terrainData, 1.05f);
+                NormalizeHeights(terrain.terrainData, heightRange.x, heightRange.y);
+
+                ClearAlphas (terrain.terrainData, 0);
+                PerlinAlphas(terrain.terrainData, offsetAlphas, groundLayer1, groundLayer2, alphaScale, ratio);
+                SlopeAlphas (terrain.terrainData, new Vector2(15, 45), cliffLayer);
                 break;
+
             case TerrainEditPresets.Craters:
-                GenerateHeights (terrain, TerrainEditMode.Set, noiseScale, new Vector2(0, 1), offset);
-                GenerateHeights (terrain, TerrainEditMode.Additive, noiseScale, new Vector2(0.7f, 1), offset);
-                NormalizeHeights(terrain, heightRange.x, heightRange.y);
+                PerlinHeights   (terrain.terrainData, TerrainEditMode.Set, terrainScale, new Vector2(0, 1), offset);
+                PerlinHeights   (terrain.terrainData, TerrainEditMode.Additive, terrainScale, new Vector2(0.7f, 1), offset);
+                NormalizeHeights(terrain.terrainData, heightRange.x, heightRange.y);
+
+                ClearAlphas (terrain.terrainData, 0);
+                PerlinAlphas(terrain.terrainData, offsetAlphas, groundLayer1, groundLayer2, alphaScale, ratio);
+                SlopeAlphas (terrain.terrainData, new Vector2(0, 0.1f), cliffLayer);
+                break;
+
+            case TerrainEditPresets.Pillars:
+                PerlinHeights   (terrain.terrainData, TerrainEditMode.Set, terrainScale, new Vector2(0, 1), offset);
+                PerlinHeights   (terrain.terrainData, TerrainEditMode.Additive, terrainScale, new Vector2(0.7f, 1), offset);
+                InvertHeights   (terrain.terrainData);
+                PerlinHeights   (terrain.terrainData, TerrainEditMode.Additive, terrainScale/6, new Vector2(0, 0.04f), offset*2);
+                PerlinHeights   (terrain.terrainData, TerrainEditMode.Additive, terrainScale/1.5f, new Vector2(0, 0.02f), offset*3);
+                NormalizeHeights(terrain.terrainData, heightRange.x, heightRange.y);
+
+                ClearAlphas (terrain.terrainData, 0);
+                PerlinAlphas(terrain.terrainData, offsetAlphas, groundLayer1, groundLayer2, alphaScale, ratio);
+                SlopeAlphas (terrain.terrainData, new Vector2(10, 15), cliffLayer);
                 break;
         }
 
@@ -89,10 +123,37 @@ public class TerrainHelper : MonoBehaviour
         #endregion Debug
     }
 
-    [Button("InvertHeights")]
+    [Button("Invert Heights")]
     public void InvertHeightHandle()
     {
-        InvertHeights(terrain);
+        InvertHeights(terrain.terrainData);
+    }
+
+
+    [Button("Textures Only")]
+    public void TexturesOnly()
+    {
+        #region Debug
+        System.DateTime startTime = System.DateTime.Now;
+        #endregion Debug
+
+        if (randomizeOffsets)
+            RandomizeOffsets();
+
+        PerlinAlphas(terrain.terrainData, offsetAlphas, groundLayer1, groundLayer2, alphaScale, ratio);
+        SlopeAlphas(terrain.terrainData, cliffAngle, cliffLayer);
+
+        #region Debug
+        double elapsedTime = System.DateTime.Now.Subtract(startTime).TotalMilliseconds;
+        if (debug)
+            Debug.Log("Texturemap generation complete!\nElapsed time: " + elapsedTime + "ms");
+        #endregion Debug
+    }
+
+    [Button("Clear Textures")]
+    public void ClearAlphasHandler()
+    {
+        ClearAlphas(terrain.terrainData);
     }
 
     [Button("ToggleMesh")]
@@ -122,18 +183,20 @@ public class TerrainHelper : MonoBehaviour
     #endregion Editor Handles
 
     #region Height Methods
-    public void GenerateHeights(Terrain _terrain, TerrainEditMode _mode, float _tileSize, Vector2 _range, Vector2 _offset)
+    public void PerlinHeights(TerrainData _td, TerrainEditMode _mode, float _tileSize, Vector2 _range, Vector2 _offset)
     {
         #region Sanitization
-        if (_range.x >= _range.y)
+        if (_range.x > _range.y)
         {
-            Debug.Log("Warning, range.x cannot be larger than or equal to range.y\nOpperation not executed");
+            Debug.LogWarning("range.x cannot be larger than range.y\nOpperation not executed");
             return;
         }
+        else if (_range.x == _range.y)
+            return;
         #endregion Sanitization
 
-        int res = _terrain.terrainData.heightmapResolution;
-        float[,] heights = _terrain.terrainData.GetHeights(0,0,res,res);
+        int res = _td.heightmapResolution;
+        float[,] heights = _td.GetHeights(0,0,res,res);
         float r = _range.y - _range.x;
 
         for (int i = 0; i < res; i++)
@@ -162,45 +225,53 @@ public class TerrainHelper : MonoBehaviour
             }
         }
 
-        _terrain.terrainData.SetHeights(0, 0, heights);
+        _td.SetHeights(0, 0, heights);
     }
 
-    public void PowHeights (Terrain _terrain, float power)
+    public void PowHeights (TerrainData _td, float power)
     {
         #region Sanitization
         if (power <= 0)
         {
-            Debug.LogWarning("power can not be negative!");
+            Debug.LogWarning("power can not be negative!\nOpperation not executed");
             return;
         }
         #endregion Sanitization
 
-        int res = _terrain.terrainData.heightmapResolution;
-        float[,] heights = _terrain.terrainData.GetHeights(0, 0, res, res);
+        int res = _td.heightmapResolution;
+        float[,] heights = _td.GetHeights(0, 0, res, res);
 
         for (int i = 0; i < res; i++)
             for (int k = 0; k < res; k++)
                 heights[i,k] = Mathf.Pow(heights[i,k], power);
 
-        _terrain.terrainData.SetHeights(0, 0, heights);
+        _td.SetHeights(0, 0, heights);
     }
 
-    public void InvertHeights (Terrain _terrain)
+    public void InvertHeights (TerrainData _td)
     {
-        int res = _terrain.terrainData.heightmapResolution;
-        float[,] heights = _terrain.terrainData.GetHeights(0, 0, res, res);
+        int res = _td.heightmapResolution;
+        float[,] heights = _td.GetHeights(0, 0, res, res);
 
         for (int i = 0; i < res; i++)
             for (int k = 0; k < res; k++)
                 heights[i,k] = 1 - heights[i,k];
 
-        _terrain.terrainData.SetHeights(0, 0, heights);
+        _td.SetHeights(0, 0, heights);
     }
 
-    public void NormalizeHeights(Terrain _terrain, float _min = 0, float _max = 1)
+    public void NormalizeHeights(TerrainData _td, float _min = 0, float _max = 1)
     {
-        int res = _terrain.terrainData.heightmapResolution;
-        float[,] heights = _terrain.terrainData.GetHeights(0, 0, res, res);
+        #region Sanitization
+        if (_min >= _max)
+        {
+            Debug.LogWarning("_min cannot be greater than or equal to _max\nOpperation not executed");
+            return;
+        }
+        #endregion Sanitization
+
+        int res = _td.heightmapResolution;
+        float[,] heights = _td.GetHeights(0, 0, res, res);
 
         float _min0 = 1;
         float _max0 = 0;
@@ -219,45 +290,96 @@ public class TerrainHelper : MonoBehaviour
             for (int k = 0; k < res; k++)
                 heights[i,k] = (heights[i,k]-_min0) * a + _min;
 
-        _terrain.terrainData.SetHeights(0, 0, heights);
+        _td.SetHeights(0, 0, heights);
     }
 
     public void RandomizeOffsets ()
     {
         offset = new Vector2(Random.value, Random.value) * 10000;
+        offsetAlphas = new Vector2(Random.value, Random.value) * 10000;
     }
     #endregion Height Methods
 
-    #region Texture Methods
-    public void SlopeTextures (Terrain _terrain, Vector2 _angleRange, int _slopeTex)
+    #region Alpha Methods
+
+    public void PerlinAlphas (TerrainData _td, Vector2 _offset, int _layerA = 0, int _layerB = 1, float _tileSize = 1f, float _ratio = 0.5f)
     {
-        int res = _terrain.terrainData.heightmapResolution;
-        float[,,] map = _terrain.terrainData.GetAlphamaps(0,0,res,res);
-
-        // For each point on the alphamap...
-        for (int y = 0; y < res; y++)
+        #region Sanitization
+        if (_ratio<0 || _ratio>1)
         {
-            for (int x = 0; x < res; x++)
+            Debug.LogWarning("_ration must be between 0 and 1\n_ration given: "+_ratio);
+            return;
+        }
+        if (_layerA<0 || _layerB<0)
+            return;
+        #endregion Sanitization
+
+        int res = _td.alphamapResolution;
+        float[,,] map = _td.GetAlphamaps(0, 0, res, res);
+
+        for (int x = 0; x < res; x++)
+        {
+            for (int y = 0; y < res; y++)
             {
-                // Get the normalized terrain coordinate that
-                // corresponds to the the point.
-                float normX = x / (res-1f);
-                float normY = y / (res-1f);
-
-                // Get the steepness value at the normalized coordinate.
-                var angle = _terrain.terrainData.GetSteepness(normX, normY);
-
-                // Steepness is given as an angle, 0..90 degrees. Divide
-                // by 90 to get an alpha blending value in the range 0..1.
-                ///TODO: Your mum
-                var frac = angle / 90.0;
-                map[x, y, 0] = (float)frac;
-                map[x, y, 1] = (float)(1 - frac);
+                //Don't forget to call mom
+                float p = Mathf.PerlinNoise(_tileSize*(_offset.x+x)/res, _tileSize*(_offset.y+y)/res);
+                if (_layerA != -1)
+                    map[x,y,_layerA] = p;
+                if (_layerB != -1)
+                    map[x,y,_layerB] = 1-p;
             }
         }
-        _terrain.terrainData.SetAlphamaps(0, 0, map);
+        _td.SetAlphamaps(0, 0, map);
     }
-    #endregion Texture Methods
+
+    public void SlopeAlphas (TerrainData _td, Vector2 _angleRange, int _slopeLayer)
+    {
+        #region Sanitization
+        if (_angleRange.x > _angleRange.y)
+        {
+            Debug.LogWarning("angleRange.x cannot be larger than angleRange.y\nOpperation not executed");
+            return;
+        }
+        #endregion Sanitization
+
+        int res = _td.alphamapResolution;
+        float[,,] map = _td.GetAlphamaps(0,0,res,res);
+
+        // For each point on the alphamap...
+        for (int x = 0; x < res; x++)
+        {
+            for (int y = 0; y < res; y++)
+            {
+                float angle = _td.GetSteepness(y/(res-1f), x/(res-1f));
+                float frac = 0;
+
+                if (angle >= _angleRange.y)
+                    frac = 1;
+                else if (angle > _angleRange.x)
+                    frac = (angle-_angleRange.x) / (_angleRange.y-_angleRange.x);
+
+                for (int i = 0; i < map.GetLength(2); i++)
+                    if (i == _slopeLayer)
+                        map[x, y, i] = frac;
+                    else
+                        map[x, y, i] *= (1 - frac);
+            }
+        }
+        _td.SetAlphamaps(0, 0, map);
+    }
+
+    public void ClearAlphas (TerrainData _td, int _fillLayer = -1)
+    {
+        float[,,] map = _td.GetAlphamaps(0, 0, _td.alphamapResolution, _td.alphamapResolution);
+
+        for (int x = 0; x < map.GetLength(0); x++)
+            for (int y = 0; y < map.GetLength(1); y++)
+                for (int i = 0; i < map.GetLength(2); i++)
+                    map[x, y, i] = i==_fillLayer?1:0;
+
+        _td.SetAlphamaps(0, 0, map);
+    }
+    #endregion Alpha Methods
 
     #region Mesh Methods
     public void ConvertToMesh (TerrainData td)
@@ -267,7 +389,7 @@ public class TerrainHelper : MonoBehaviour
         int vertCount = res * res;
         int trisCount = 2 * (res-1)*(res-1);
 
-        Debug.Log("Resolution: " + (res-1) + " + 1\nVertices:" + vertCount);
+        //Debug.Log("Resolution: " + (res-1) + " + 1\nVertices:" + vertCount);
 
         #region CreateObjects
         meshObj = new GameObject();
@@ -314,19 +436,16 @@ public class TerrainHelper : MonoBehaviour
         }
         mesh.triangles = tris;
 
-        // Simple up-facing Normals
-        for (int i = 0; i < vertCount; i++)
-        {
-            normals[i] = -Vector3.forward;
-        }
-        mesh.normals = normals;
+        // Let Unity do the Normals for us
+        mesh.RecalculateNormals();
 
-        // IDRK how UVs work
+        // UVs control how the texture is placed on the mesh
         for (int i = 0; i < vertCount; i++)
         {
             Vector2Int pos = GetPos(i, res);
 
-            uv[i] = new Vector2(pos.x, pos.y);
+            //uv[i] = new Vector2(pos.x/(res-1f), pos.y/(res-1f)); // Entire mesh is 1 tile
+            uv[i] = new Vector2(pos.x, pos.y); // Each quad is 1 tile
         }
         mesh.uv = uv;
 
@@ -359,6 +478,7 @@ public enum TerrainEditPresets
     Custom,
     Hills,
     Plateaus,
-    Craters
+    Craters,
+    Pillars
 }
 #endregion Enums
